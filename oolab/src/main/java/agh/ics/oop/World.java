@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import java.util.Arrays;
+
 public class World {
 
     public static void main(String[] args){
@@ -13,7 +15,7 @@ public class World {
                 case "b" -> Direction.BACKWARD;
                 case "l" -> Direction.LEFT;
                 case "r" -> Direction.RIGHT;
-                default -> Direction.FORWARD;
+                default -> Direction.WRONG_DIRECTION;
             };
         }
 
@@ -29,6 +31,7 @@ public class World {
                 case BACKWARD -> "zwierzak idzie do tyłu";
                 case LEFT -> "zwierzak skręca w lewo";
                 case RIGHT -> "zwierzak skręca w prawo";
+                default -> "";
             };
             System.out.println(message);
         }
