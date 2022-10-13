@@ -33,7 +33,10 @@ public class World {
                 case RIGHT -> "zwierzak skręca w prawo";
                 default -> "";
             };
-            System.out.println(message);
+            System.out.print(message);
+            if(message != "") {
+                System.out.println();
+            }
         }
     }
 }
