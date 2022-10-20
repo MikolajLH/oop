@@ -1,42 +1,44 @@
 package agh.ics.oop;
 
-import java.util.Arrays;
 
 public class World {
 
-    public static void main(String[] args){
-        System.out.println("Start");
+    public static void main(String[] args) {
 
-        Direction[] directions = new Direction[args.length];
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.add(position2));
 
-        for (int i = 0; i < directions.length; i++) {
-            directions[i] = switch (args[i]) {
-                case "f" -> Direction.FORWARD;
-                case "b" -> Direction.BACKWARD;
-                case "l" -> Direction.LEFT;
-                case "r" -> Direction.RIGHT;
-                default -> Direction.WRONG_DIRECTION;
-            };
-        }
 
-        run(directions);
+        MapDirection N = MapDirection.NORTH;
+        MapDirection E = MapDirection.EAST;
+        MapDirection S = MapDirection.SOUTH;
+        MapDirection W = MapDirection.WEST;
 
-        System.out.println("Stop");
-    }
-    public static void run(Direction[] directions){
+        System.out.println(N);
+        System.out.println(E);
+        System.out.println(S);
+        System.out.println(W);
 
-        for(Direction d : directions){
-            String message  = switch (d){
-                case FORWARD -> "zwierzak idzie do przodu";
-                case BACKWARD -> "zwierzak idzie do tyłu";
-                case LEFT -> "zwierzak skręca w lewo";
-                case RIGHT -> "zwierzak skręca w prawo";
-                default -> "";
-            };
-            System.out.print(message);
-            if(message != "") {
-                System.out.println();
-            }
-        }
+        System.out.println();
+
+        System.out.println(N.next());
+        System.out.println(E.next());
+        System.out.println(S.next());
+        System.out.println(W.next());
+
+        System.out.println();
+
+        Vector2d Nv = N.toUnitVector();
+        Vector2d Ev = E.toUnitVector();
+        Vector2d Sv = S.toUnitVector();
+        Vector2d Wv = W.toUnitVector();
+
+        System.out.println(Nv);
+        System.out.println(Ev);
+        System.out.println(Sv);
+        System.out.println(Wv);
     }
 }
