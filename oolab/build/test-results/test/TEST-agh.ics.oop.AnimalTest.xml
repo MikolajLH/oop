@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="agh.ics.oop.AnimalTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-10-27T10:55:39" hostname="LAPTOP-DI8V83VK" time="0.05">
+  <properties/>
+  <testcase name="AnimalTest()" classname="agh.ics.oop.AnimalTest" time="0.044"/>
+  <testcase name="TestAnimal2()" classname="agh.ics.oop.AnimalTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
