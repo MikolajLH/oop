@@ -1,7 +1,6 @@
-package agh.ics.oop;
+/*package agh.ics.oop;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,12 +14,12 @@ public class AnimalTest {
         this.animal = new Animal();
     }
 
-
     @Test
-    public void AnimalTest(){
+    public void AnimalTest_1(){
         Assertions.assertTrue(animal.isAt(new Vector2d(2,2)));
         Assertions.assertEquals(animal.getOrientation(),MapDirection.NORTH);
-        final int w = 6;
+        final int w = Animal.w + 1;
+        final int h = Animal.h + 1;
 
         for(int i=0; i < w;i++)
             animal.move(MoveDirection.FORWARD);
@@ -31,11 +30,11 @@ public class AnimalTest {
 
 
         animal.move(MoveDirection.RIGHT);
-        for(int i=0; i < w;i++)
+        for(int i=0; i < h;i++)
             animal.move(MoveDirection.FORWARD);
         Assertions.assertEquals(animal.getPosition().x,N-1);
 
-        for(int i=0; i < w; i++)
+        for(int i=0; i < h; i++)
             animal.move(MoveDirection.BACKWARD);
         Assertions.assertEquals(animal.getPosition().x,0);
 
@@ -52,30 +51,33 @@ public class AnimalTest {
     }
 
     @Test
-    public void TestAnimal2() {
-        final String[] commands_1_s =
+    public void TestAnimal_2() {
+        final String[] commands_s =
                 {"f", "f", "l", "f"};
-        final MoveDirection[] commands_1_e =
+        final MoveDirection[] commands_e =
                 {MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.LEFT, MoveDirection.FORWARD};
 
-        MoveDirection[] parsed_1 = OptionsParser.parse(commands_1_s);
+        MoveDirection[] parsed = OptionsParser.parse(commands_s);
 
-        for (MoveDirection e : parsed_1)
+        for (MoveDirection e : parsed)
             animal.move(e);
         Assertions.assertTrue(animal.isAt(new Vector2d(1, 4)));
         Assertions.assertEquals(animal.getOrientation(), MapDirection.WEST);
+    }
 
 
-        final String[] commands_2_s =
-                {"test", "forward", "L", "   ", "backward", "f", "l", "right", "left"};
-        final MoveDirection[] commands_2_e =
-                {MoveDirection.FORWARD, MoveDirection.BACKWARD, MoveDirection.FORWARD, MoveDirection.LEFT, MoveDirection.RIGHT};
+    @Test
+    public void TestAnimal_3() {
+        final String[] commands_s =
+                {"test","niepoprawny", "forward", "L", "   ", "asdfg", "backward", "f", "l", "right", "left", "f", "f" ,"f", "f"};
 
-        MoveDirection[] parsed_2 = OptionsParser.parse(commands_2_s);
+        MoveDirection[] parsed = OptionsParser.parse(commands_s);
 
-        for (MoveDirection e : parsed_2)
+        for (MoveDirection e : parsed)
             animal.move(e);
-        Assertions.assertTrue(animal.isAt(new Vector2d(0, 4)));
-        Assertions.assertEquals(animal.getOrientation(), MapDirection.SOUTH);
+        Assertions.assertTrue(animal.isAt(new Vector2d(0, 3)));
+        Assertions.assertEquals(animal.getOrientation(), MapDirection.WEST);
     }
 }
+
+ */

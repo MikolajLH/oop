@@ -2,19 +2,23 @@
 ///*
 package agh.ics.oop;
 
-import java.util.Optional;
-import java.util.function.Function;
-
-public class Animal {
-    private Vector2d position = new Vector2d(2, 2);
+class Animal {
+    private Vector2d position;
     private MapDirection orientation = MapDirection.NORTH;
+    private IWorldMap map;
 
-    public Animal() {
-
+    public Animal(IWorldMap map, Vector2d initialPosition){
+        this.map = map;
+        this.position = initialPosition;
     }
 
-    public String toString() {
+
+    public String toStringDec() {
         return position.toString() + " " + orientation.toString();
+    }
+
+    public String toString(){
+        return orientation.toSymbol();
     }
 
     public boolean isAt(Vector2d position) {
@@ -23,10 +27,6 @@ public class Animal {
 
     public MapDirection getOrientation() { return this.orientation; }
     public Vector2d getPosition() { return this.position;}
-
-    public static boolean is_safe(Vector2d position, int w, int h){
-        return position.x >= 0 && position.x < w && position.y >= 0 && position.y < h;
-    }
 
     public void move(MoveDirection direction) {
         switch (direction) {
@@ -40,7 +40,7 @@ public class Animal {
 
                 final Vector2d new_position = this.position.add(delta);
 
-                if (is_safe(new_position, 5, 5))
+                if (map.canMoveTo(new_position) && !map.isOccupied(new_position))
                     this.position = new_position;
             }
         };
