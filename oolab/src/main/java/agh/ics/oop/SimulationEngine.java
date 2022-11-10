@@ -24,14 +24,12 @@ public class SimulationEngine implements  IEngine{
 
     public void run(){
         System.out.println(map);
-        TextFrame frame = new TextFrame();
 
-        frame.setText(map.toString());
         for(int i = 0; i < moves.length; i++)
         {
-            animals.get(i % animals.size()).move(moves[i]);
+            if(animals.size() > 0)
+                animals.get(i % animals.size()).move(moves[i]);
             System.out.println(map);
-            frame.setText(map.toString());
         }
 
     }

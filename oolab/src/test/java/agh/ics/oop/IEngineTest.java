@@ -8,7 +8,24 @@ public class IEngineTest {
     @Test
     void Test1(){
 
+        String[] args = {"f b r f f f f left b b b"};
+        MoveDirection[] directions = new OptionsParser().parse(args);
+
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(1,3), new Vector2d(2,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+
+        Assertions.assertFalse(map.place(new Animal(map, new Vector2d(10,10))));
+
+        Assertions.assertTrue(map.isOccupied(new Vector2d(1,3)));
+
+        Assertions.assertNotNull(map.objectAt(new Vector2d(2, 4)));
+    }
+
+    @Test
+    void Test2(){
         String[] args = {"f b r l f f r r f f f f f f f f"};
+        //String[] args = {"f f"};
         MoveDirection[] directions = new OptionsParser().parse(args);
 
         IWorldMap map = new RectangularMap(10, 5);

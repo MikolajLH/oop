@@ -61,4 +61,11 @@ public class Vector2d {
         result = prime * result + (this.y < 0 ? 17 * this.y : 23 * this.y);
         return result;
     }
+
+    public int getX(){
+        return  x;
+    }
+    public int getY(){
+        return y;
+    }
 }

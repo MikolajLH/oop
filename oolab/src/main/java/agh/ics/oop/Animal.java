@@ -1,8 +1,7 @@
-
-///*
 package agh.ics.oop;
 
-class Animal {
+//*
+class Animal implements IMapElement{
     private Vector2d position;
     private MapDirection orientation = MapDirection.NORTH;
     private IWorldMap map;
@@ -12,8 +11,12 @@ class Animal {
         this.position = initialPosition;
     }
 
+    public Animal(IWorldMap map){
+        this.map = map;
+        this.position = new Vector2d(0,0);
+    }
 
-    public String toStringDec() {
+    public String toStringDep() {
         return position.toString() + " " + orientation.toString();
     }
 
@@ -40,10 +43,12 @@ class Animal {
 
                 final Vector2d new_position = this.position.add(delta);
 
-                if (map.canMoveTo(new_position) && !map.isOccupied(new_position))
+                if(this.map.move_element(this,new_position))
+                {
                     this.position = new_position;
+                }
             }
-        };
+        }
     }
 }
 //*/
