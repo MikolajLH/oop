@@ -9,13 +9,14 @@ public class IMapTest {
     public void RectangularMapTest(){
 
         IWorldMap map = new RectangularMap(10,5);
-
         Animal animal_1 = new Animal(map, new Vector2d(11,6));
 
         Vector2d init_pos = new Vector2d(3,3);
         Animal animal_2 = new Animal(map, init_pos);
 
+
         Assertions.assertFalse(map.place(animal_1));
+
         Assertions.assertTrue(map.place(animal_2));
 
         Assertions.assertTrue(map.isOccupied(init_pos));
@@ -23,17 +24,10 @@ public class IMapTest {
         Assertions.assertTrue(map.objectAt(init_pos) instanceof Animal);
         Assertions.assertNull(map.objectAt(new Vector2d(1, 1)));
 
-        animal_2.move(MoveDirection.FORWARD);
-
-        Assertions.assertTrue(map.isOccupied(init_pos.add(new Vector2d(0,1))));;
 
         animal_2.move(MoveDirection.FORWARD);
-        animal_2.move(MoveDirection.FORWARD);
-        animal_2.move(MoveDirection.RIGHT);
-        animal_2.move(MoveDirection.FORWARD);
-        animal_2.move(MoveDirection.FORWARD);
 
-
+        Assertions.assertTrue(map.isOccupied(init_pos.add(new Vector2d(0,1))));
     }
 
     @Test

@@ -4,7 +4,9 @@ import java.util.*;
 
 public class GrassField extends AbstractWorldMap{
 
-    Vector2d random_position(int n){
+    final int n;
+
+    Vector2d random_unique_position(int n){
         final int min = 0;
         final int max = (int)Math.sqrt((double)n * 10);
         Random rand = new Random();
@@ -19,64 +21,49 @@ public class GrassField extends AbstractWorldMap{
             }
         }
     }
-    final int n;
-
-    public boolean place(Animal animal){
-        boolean free = move_element(animal,animal.getPosition());
-        if(!free){
-            return false;
-        }
-        elements.add(animal);
-        return true;
-    }
 
     GrassField(int n){
         this.n = n;
         for(int i = 0; i < n; i++)
         {
-            elements.add(new Grass(this.random_position(this.n)));
+            Vector2d position = this.random_unique_position(this.n);
+            elements.put(position,new Grass(position));
         }
     }
 
+    @Override
     public boolean canMoveTo(Vector2d position){
-        return true;
+        Object object = objectAt(position);
+        return !(object instanceof  Animal);
     }
 
-    public boolean move_element(IMapElement el, Vector2d new_position){
-        Object object = objectAt(new_position);
-        if(object instanceof Animal){
-            return false;
-        }
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        Object object = objectAt(newPosition);
         if(object instanceof Grass){
-            elements.add(new Grass(random_position(this.n)));
-            elements.remove(object);
-            return true;
+            Vector2d new_grass_position = random_unique_position(this.n);
+            IMapElement grass_e = elements.remove(newPosition);
+            elements.put(new_grass_position,grass_e);
         }
-        return true;
+        super.positionChanged(oldPosition, newPosition);
     }
 
+    @Override
     protected Vector2d upperRight(){
-
-        if (elements.size() == 0)
-        {
+        if (elements.size() == 0) {
             return new Vector2d(0,0);
         }
-        Vector2d uR = elements.get(0).getPosition();
-        return this.elements.stream().
-                map(IMapElement::getPosition).
-                reduce(uR,Vector2d::upperRight);
+        Optional<Vector2d> uR = this.elements.keySet().stream().reduce(Vector2d::upperRight);
+        return uR.get();
     }
 
+    @Override
     protected Vector2d lowerLeft(){
-        if (elements.size() == 0)
-        {
+        if (elements.size() == 0) {
             return new Vector2d(0,0);
         }
-        Vector2d lL = elements.get(0).getPosition();
-
-        return this.elements.stream().
-                map(IMapElement::getPosition).
-                reduce(lL,Vector2d::lowerLeft);
+        Optional<Vector2d> lL = this.elements.keySet().stream().reduce(Vector2d::lowerLeft);
+        return lL.get();
     }
 }
 

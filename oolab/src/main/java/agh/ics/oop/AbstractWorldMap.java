@@ -1,43 +1,46 @@
 package agh.ics.oop;
 
-import java.util.LinkedList;
+import java.util.*;
 
-abstract class AbstractWorldMap implements IWorldMap {
+abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
 
-    protected LinkedList<IMapElement> elements = new LinkedList<>();
+    //protected LinkedList<IMapElement> elements = new LinkedList<>();
 
-    public boolean canMoveTo(Vector2d position){
-        return true;
-    }
+    public Map<Vector2d,IMapElement> elements = new HashMap<>();
 
+    abstract public boolean canMoveTo(Vector2d position);
+
+    @Override
     public boolean place(Animal animal){
-        if(this.isOccupied(animal.getPosition()) || !canMoveTo(animal.getPosition()))
+        if(!canMoveTo(animal.getPosition()))
             return false;
 
-        this.elements.add(animal);
+        this.elements.put(animal.getPosition(),animal);
+        animal.addObserver(this);
         return true;
     }
 
+    @Override
     public boolean isOccupied(Vector2d position){
         return objectAt(position) != null;
     }
 
+    @Override
     public Object objectAt(Vector2d position){
-        for(IMapElement e : this.elements)
-            if(e.isAt(position))
-                return e;
-        return null;
+        return this.elements.getOrDefault(position, null);
     }
 
-    public boolean move_element(IMapElement el, Vector2d new_position) {
-        return this.canMoveTo(new_position) && !this.isOccupied(new_position);
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        IMapElement el = elements.remove(oldPosition);
+        elements.put(newPosition,el);
     }
 
     abstract protected Vector2d upperRight();
 
     abstract protected Vector2d lowerLeft();
 
-    public String toString(){
+    final public String toString(){
         return new MapVisualizer(this).draw(lowerLeft(), upperRight());
     }
 }

@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import java.util.Objects;
+
 public class Vector2d {
     public final int x;
     public final int y;
@@ -54,12 +56,16 @@ public class Vector2d {
         return this.x == that.x && this.y == that.y;
     }
 
+    @Override
     public int hashCode(){
+        return Objects.hash(this.x,this.y);
+        /*
         int prime = 89;
         int result = 1;
         result = prime * result + (this.x < 0 ? 13 * this.x : 19 * this.x);
         result = prime * result + (this.y < 0 ? 17 * this.y : 23 * this.y);
         return result;
+        */
     }
 
     public int getX(){
