@@ -69,7 +69,7 @@ public class Vector2d {
     }
 
     public int getX(){
-        return  x;
+        return x;
     }
     public int getY(){
         return y;

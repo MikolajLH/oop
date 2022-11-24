@@ -14,10 +14,24 @@ public class IMapTest {
         Vector2d init_pos = new Vector2d(3,3);
         Animal animal_2 = new Animal(map, init_pos);
 
+        try {
+            map.place(animal_1);
+        }
+        catch(IllegalArgumentException e){
+            Assertions.assertEquals("(11,6) is occupied",e.getMessage());
+        }
+        catch(Exception e)
+        {
+            Assertions.fail("this part of code is not supposed to throw any exceptions");
+        }
 
-        Assertions.assertFalse(map.place(animal_1));
+        try{
+            map.place(animal_2);
+        }
+        catch(Exception e){
+            Assertions.fail("this part of code is not supposed to throw any exceptions");
+        }
 
-        Assertions.assertTrue(map.place(animal_2));
 
         Assertions.assertTrue(map.isOccupied(init_pos));
 
@@ -60,7 +74,14 @@ public class IMapTest {
 
         Animal animal = new Animal(map,grass_position);
 
-        Assertions.assertTrue(map.place(animal));
+        try{
+            map.place(animal);
+        }
+        catch(Exception e)
+        {
+            Assertions.fail("this part of code is not supposed to throw any exceptions");
+        }
+
 
         animal.move(MoveDirection.FORWARD);
 

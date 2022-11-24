@@ -1,12 +1,13 @@
 package agh.ics.oop;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
 public class OptionsParser {
 
-    public static MoveDirection[] parse(String[] args) {
+    public static MoveDirection[] parse(List<String> args) {
 
         Function<String,MoveDirection> convert =
                 (String s) -> switch (s) {
@@ -14,12 +15,11 @@ public class OptionsParser {
                     case "f", "forward" -> MoveDirection.FORWARD;
                     case "l", "left" -> MoveDirection.LEFT;
                     case "r", "right" -> MoveDirection.RIGHT;
-                    default -> null;
+                    default -> throw new IllegalArgumentException(s + " is not legal move specification");
             };
 
-        return Arrays.stream(args).
+        return args.stream().
                 map(convert).
-                filter(Objects::nonNull).
                 toArray(MoveDirection[]::new);
     }
 }
